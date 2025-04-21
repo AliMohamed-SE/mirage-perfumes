@@ -25,10 +25,10 @@
     --ring: 35 65% 55%;
     --radius: 0.5rem;
     /* Brand Colors */
-    --mirage-bronze: #D1984B;
+    --mirage-bronze: #d1984b;
     --mirage-charcoal: #333333;
-    --mirage-gray: #D8D8D8;
-    --mirage-light: #FFFFFF;
+    --mirage-gray: #d8d8d8;
+    --mirage-light: #ffffff;
   }
 
   .dark {
@@ -52,10 +52,10 @@
     --input: 0 0% 17%;
     --ring: 35 43% 59%;
     /* Brand Colors */
-    --mirage-bronze: #D1984B;
+    --mirage-bronze: #d1984b;
     --mirage-charcoal: #333333;
-    --mirage-gray: #D8D8D8;
-    --mirage-light: #1A1A1A;
+    --mirage-gray: #d8d8d8;
+    --mirage-light: #1a1a1a;
   }
 }
 
@@ -68,7 +68,12 @@
     @apply bg-background text-foreground font-sans;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }

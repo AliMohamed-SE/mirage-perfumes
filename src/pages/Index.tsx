@@ -1,4 +1,3 @@
-
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/home/Hero";
 import FeaturedSection from "@/components/home/FeaturedSection";
@@ -14,7 +13,7 @@ const Index = () => {
       <FeaturedSection />
       <BrandStory />
       <Testimonials />
-      <Newsletter />
+      {/* <Newsletter /> */}
       <InstagramGallery />
     </Layout>
   );
