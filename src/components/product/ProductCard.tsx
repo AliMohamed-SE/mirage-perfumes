@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
+import { useUser } from "@/hooks/useUser";
+import { useCart } from "@/hooks/useCart";
 
 export interface ProductType {
   id: number;
@@ -21,10 +23,18 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { user } = useUser();
+  const { addToCart } = useCart();
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toast.success(`${product.name} added to cart`);
+    if (!user) {
+      toast.error("Please log in to add items to your cart.");
+      return;
+    }
+    addToCart(product.id, 1);
+    toast.success(`${product.name} added to cart!`);
   };
 
   return (
