@@ -14,6 +14,7 @@ import AuthPage from "./pages/Auth";
 import ProfilePage from "./pages/Profile";
 import CartPage from "./pages/Cart";
 import { UserProvider } from "@/hooks/useUser";
+import { CartProvider } from "@/hooks/useCart";
 
 const queryClient = new QueryClient();
 
@@ -23,19 +24,21 @@ const App = () => (
       <Toaster />
       <Sonner />
       <UserProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
       </UserProvider>
     </TooltipProvider>
   </QueryClientProvider>

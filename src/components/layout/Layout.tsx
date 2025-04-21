@@ -2,7 +2,6 @@
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { CartProvider } from "@/hooks/useCart";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,13 +9,11 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </div>
-    </CartProvider>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
   );
 };
 
