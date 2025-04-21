@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -9,11 +8,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart, Heart } from "lucide-react";
 import { toast } from "sonner";
 import ProductGrid from "@/components/product/ProductGrid";
+import CheckoutModal from "@/components/product/CheckoutModal";
+import { useUser } from "@/hooks/useUser";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = getProductById(Number(id));
   const [quantity, setQuantity] = useState(1);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const { user } = useUser();
 
   const handleQuantityChange = (amount: number) => {
     const newQuantity = quantity + amount;
@@ -24,7 +27,11 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (product) {
-      toast.success(`${product.name} added to cart`);
+      if (!user) {
+        toast.error("Please log in to place orders.");
+        return;
+      }
+      setCheckoutOpen(true);
     }
   };
 
@@ -208,6 +215,16 @@ const ProductDetail = () => {
           )}
         </div>
       </div>
+      
+      {/* Checkout Modal */}
+      {product && (
+        <CheckoutModal
+          open={checkoutOpen}
+          onClose={() => setCheckoutOpen(false)}
+          product={product}
+          quantity={quantity}
+        />
+      )}
     </Layout>
   );
 };

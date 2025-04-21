@@ -1,14 +1,15 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/hooks/useUser";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState(0);
+  const { user } = useUser();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +46,6 @@ const Navbar = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-sm tracking-wide hover:text-mirage-bronze luxury-transition">HOME</Link>
             <Link to="/shop" className="text-sm tracking-wide hover:text-mirage-bronze luxury-transition">SHOP</Link>
-            <Link to="/collections" className="text-sm tracking-wide hover:text-mirage-bronze luxury-transition">COLLECTIONS</Link>
             <Link to="/about" className="text-sm tracking-wide hover:text-mirage-bronze luxury-transition">ABOUT</Link>
             <Link to="/contact" className="text-sm tracking-wide hover:text-mirage-bronze luxury-transition">CONTACT</Link>
           </nav>
@@ -55,9 +55,15 @@ const Navbar = () => {
             <button aria-label="Search" className="hover:text-mirage-bronze luxury-transition">
               <Search size={20} />
             </button>
-            <Link to="/account" aria-label="Account" className="hover:text-mirage-bronze luxury-transition">
-              <User size={20} />
-            </Link>
+            {user ? (
+              <Link to="/profile" aria-label="Account" className="hover:text-mirage-bronze luxury-transition">
+                <User size={20} />
+              </Link>
+            ) : (
+              <Link to="/auth" aria-label="Account" className="hover:text-mirage-bronze luxury-transition">
+                <User size={20} />
+              </Link>
+            )}
             <Link to="/cart" aria-label="Cart" className="relative hover:text-mirage-bronze luxury-transition">
               <ShoppingCart size={20} />
               {cartItems > 0 && (
@@ -102,13 +108,6 @@ const Navbar = () => {
               SHOP
             </Link>
             <Link 
-              to="/collections" 
-              className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              COLLECTIONS
-            </Link>
-            <Link 
               to="/about" 
               className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
               onClick={() => setMobileMenuOpen(false)}
@@ -130,20 +129,30 @@ const Navbar = () => {
               >
                 <Search size={24} className="hover:text-mirage-bronze luxury-transition" />
               </Link>
-              <Link 
-                to="/account" 
-                aria-label="Account"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <User size={24} className="hover:text-mirage-bronze luxury-transition" />
-              </Link>
+              {user ? (
+                <Link 
+                  to="/profile" 
+                  aria-label="Account"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <User size={24} className="hover:text-mirage-bronze luxury-transition" />
+                </Link>
+              ) : (
+                <Link 
+                  to="/auth" 
+                  aria-label="Account"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <User size={24} className="hover:text-mirage-bronze luxury-transition" />
+                </Link>
+              )}
               <Link 
                 to="/cart" 
                 aria-label="Cart" 
                 className="relative"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <ShoppingCart size={24} className="hover:text-mirage-bronze luxury-transition" />
+                <ShoppingCart size={20} className="hover:text-mirage-bronze luxury-transition" />
                 {cartItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-mirage-bronze text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartItems}

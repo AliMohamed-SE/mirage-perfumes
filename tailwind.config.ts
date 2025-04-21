@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,11 +63,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				mirage: {
-					bronze: '#C19A6B',
-					charcoal: '#222222',
-					gray: '#F5F5F5',
-					light: '#FFFFFF',
-					dark: '#1A1A1A'
+					bronze: "#D1984B",
+					charcoal: "#333333",
+					gray: "#D8D8D8",
+					light: "#FFFFFF",
 				},
 			},
 			fontFamily: {
