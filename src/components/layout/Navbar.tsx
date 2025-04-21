@@ -4,16 +4,17 @@ import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/hooks/useUser";
+import { useCart } from "@/hooks/useCart";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState(0);
   const { user } = useUser();
+  const { getCartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 0) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -25,12 +26,10 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header 
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
-        isScrolled 
-          ? "bg-white bg-opacity-95 backdrop-blur-sm py-3 shadow-sm" 
-          : "bg-transparent py-6"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-white bg-opacity-95 backdrop-blur-sm shadow-sm py-3", // Always visible bg now
+        isScrolled ? "" : ""
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -52,9 +51,7 @@ const Navbar = () => {
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-6">
-            <button aria-label="Search" className="hover:text-mirage-bronze luxury-transition">
-              <Search size={20} />
-            </button>
+            {/* Auth/Profile */}
             {user ? (
               <Link to="/profile" aria-label="Account" className="hover:text-mirage-bronze luxury-transition">
                 <User size={20} />
@@ -64,18 +61,19 @@ const Navbar = () => {
                 <User size={20} />
               </Link>
             )}
+            {/* Cart */}
             <Link to="/cart" aria-label="Cart" className="relative hover:text-mirage-bronze luxury-transition">
               <ShoppingCart size={20} />
-              {cartItems > 0 && (
+              {getCartCount() > 0 && (
                 <span className="absolute -top-2 -right-2 bg-mirage-bronze text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItems}
+                  {getCartCount()}
                 </span>
               )}
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden z-10"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -93,69 +91,62 @@ const Navbar = () => {
             transition-all duration-300 ease-in-out
             ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
           `}>
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
               onClick={() => setMobileMenuOpen(false)}
             >
               HOME
             </Link>
-            <Link 
-              to="/shop" 
+            <Link
+              to="/shop"
               className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
               onClick={() => setMobileMenuOpen(false)}
             >
               SHOP
             </Link>
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
               onClick={() => setMobileMenuOpen(false)}
             >
               ABOUT
             </Link>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="text-lg font-medium hover:text-mirage-bronze luxury-transition"
               onClick={() => setMobileMenuOpen(false)}
             >
               CONTACT
             </Link>
             <div className="flex space-x-8 mt-8">
-              <Link 
-                to="/search" 
-                aria-label="Search"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Search size={24} className="hover:text-mirage-bronze luxury-transition" />
-              </Link>
               {user ? (
-                <Link 
-                  to="/profile" 
+                <Link
+                  to="/profile"
                   aria-label="Account"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <User size={24} className="hover:text-mirage-bronze luxury-transition" />
                 </Link>
               ) : (
-                <Link 
-                  to="/auth" 
+                <Link
+                  to="/auth"
                   aria-label="Account"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <User size={24} className="hover:text-mirage-bronze luxury-transition" />
                 </Link>
               )}
-              <Link 
-                to="/cart" 
-                aria-label="Cart" 
+              <Link
+                to="/cart"
+                aria-label="Cart"
                 className="relative"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <ShoppingCart size={20} className="hover:text-mirage-bronze luxury-transition" />
-                {cartItems > 0 && (
+                {getCartCount() > 0 && (
                   <span className="absolute -top-2 -right-2 bg-mirage-bronze text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartItems}
+                    {getCartCount()}
                   </span>
                 )}
               </Link>

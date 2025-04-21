@@ -10,13 +10,14 @@ import { toast } from "sonner";
 import ProductGrid from "@/components/product/ProductGrid";
 import CheckoutModal from "@/components/product/CheckoutModal";
 import { useUser } from "@/hooks/useUser";
+import { useCart } from "@/hooks/useCart";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const product = getProductById(Number(id));
   const [quantity, setQuantity] = useState(1);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const { user } = useUser();
+  const { addToCart } = useCart();
 
   const handleQuantityChange = (amount: number) => {
     const newQuantity = quantity + amount;
@@ -31,7 +32,9 @@ const ProductDetail = () => {
         toast.error("Please log in to place orders.");
         return;
       }
-      setCheckoutOpen(true);
+      addToCart(product.id, quantity);
+      toast.success(`${product.name} added to cart!`);
+      setQuantity(1);
     }
   };
 
