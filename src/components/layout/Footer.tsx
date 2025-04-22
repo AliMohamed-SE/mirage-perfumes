@@ -21,11 +21,14 @@ const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-serif tracking-wide">MIRAGE</h3>
-            <p className="text-sm text-gray-300 mt-4 max-w-xs">
-              Modern masculine fragrances for the sophisticated man.
-            </p>
+          <div className="space-y-8">
+            <Link to="/" className="flex items-center z-10">
+              <img
+                src="/Logo-white.png"
+                alt="Mirage Logo"
+                className="w-[250px] h-auto object-contain"
+              />
+            </Link>
             <div className="flex space-x-4 mt-6">
               <a
                 href="https://instagram.com"

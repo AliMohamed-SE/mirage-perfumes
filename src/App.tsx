@@ -12,10 +12,10 @@ import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/Auth";
 import ProfilePage from "./pages/Profile";
 import CartPage from "./pages/Cart";
-import { UserProvider } from "@/hooks/useUser";
 import { CartProvider } from "@/hooks/useCart";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
+import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <UserProvider>
+      <AuthProvider>
         <CartProvider>
           <BrowserRouter>
             <Routes>
@@ -42,7 +42,7 @@ const App = () => (
             </Routes>
           </BrowserRouter>
         </CartProvider>
-      </UserProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

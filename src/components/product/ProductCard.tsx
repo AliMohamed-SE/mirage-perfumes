@@ -1,9 +1,8 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
-import { useUser } from "@/hooks/useUser";
+import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 
 export interface ProductType {
@@ -23,7 +22,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { user } = useUser();
+  const { user } = useAuth();
   const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -46,7 +45,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             alt={product.name}
             className="w-full h-[400px] object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
           />
-          
+
           {/* Product badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
             {product.isNew && (
@@ -63,7 +62,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Quick add button */}
           <div className="absolute bottom-0 left-0 right-0 bg-mirage-charcoal bg-opacity-0 group-hover:bg-opacity-90 transition-all duration-300 p-4 translate-y-full group-hover:translate-y-0">
-            <Button 
+            <Button
               onClick={handleAddToCart}
               className="w-full bg-mirage-bronze hover:bg-mirage-bronze/90 text-white border-none"
             >
